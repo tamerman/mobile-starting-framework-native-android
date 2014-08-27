@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+    The MIT License
+    Copyright (c) 2011 Kuali Mobility Team
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in
+    all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+    THE SOFTWARE.
+
+-->
+<manifest 
+    xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:windowSoftInputMode="adjustPan"
+	package="org.kuali.kme"
+	android:versionName="1.1" 
+	android:versionCode="5">
+
+    <uses-sdk 
+        android:minSdkVersion="8" 
+        android:targetSdkVersion="19"/>
+    
+    <supports-screens
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true"
+        android:resizeable="true"
+        android:anyDensity="true"/>
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.RECORD_VIDEO"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />   
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />   
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+   	<uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.CAMERA" /> 
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+
+	<!-- Make these features all optional, allowing for wider availability.  -->
+	<uses-feature android:name="android.hardware.camera" android:required="false"/>
+	<uses-feature android:name="android.hardware.camera.autofocus" android:required="false"/>
+	<uses-feature android:name="android.hardware.vibrate" android:required="false"/>
+	<uses-feature android:name="android.hardware.location" android:required="false"/>
+	<uses-feature android:name="android.hardware.location.gps" android:required="false"/>
+	<uses-feature android:name="android.hardware.location.network" android:required="false"/>
+	<uses-feature android:name="android.hardware.microphone" android:required="false"/>
+	<uses-feature android:name="android.hardware.telephony" android:required="false"/>
+	<uses-feature android:name="android.hardware.screen.landscape" android:required="false"/>    
+    
+	<!-- GCM Related Permissions -->
+	<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+	<permission android:name="org.kuali.kme.permission.C2D_MESSAGE" android:protectionLevel="signature" />
+	<uses-permission android:name="org.kuali.kme.permission.C2D_MESSAGE" />
+	
+	
+	
+
+    <application 
+        android:icon="@drawable/ic_launcher" 
+        android:label="@string/app_name">
+        <!-- android:debuggable="true" -->
+        
+        
+        <!-- Main Application Activity -->
+        <activity 
+            android:name="KME" 
+            android:label="@string/app_name"
+			android:theme="@android:style/Theme.Black.NoTitleBar"
+            android:configChanges="orientation|screenSize|keyboardHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        
+        <!-- ZXing (Barcode Scanner) activities --> 
+        <activity 
+            android:name="com.google.zxing.client.android.CaptureActivity" 
+            android:screenOrientation="landscape" 
+            android:configChanges="orientation|keyboardHidden" 
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" 
+            android:windowSoftInputMode="stateAlwaysHidden" 
+            android:exported="false"> 
+			<intent-filter> 
+			    <action android:name="com.phonegap.plugins.barcodescanner.SCAN"/> 
+			    <category android:name="android.intent.category.DEFAULT"/>
+			</intent-filter> 
+		</activity> 
+		<activity 
+		    android:name="com.google.zxing.client.android.encode.EncodeActivity" 
+		    android:label="@string/app_name"> 
+		    <intent-filter> 
+		        <action android:name="com.phonegap.plugins.barcodescanner.ENCODE"/> 
+		        <category android:name="android.intent.category.DEFAULT"/> 
+		    </intent-filter> 
+		</activity>
+        
+		
+		<!-- GCM (Push Notification) Receiver -->
+        <receiver android:name="com.google.android.gcm.GCMBroadcastReceiver" android:permission="com.google.android.c2dm.permission.SEND" >
+			<intent-filter>
+		    	<action android:name="com.google.android.c2dm.intent.RECEIVE" />
+		    	<action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+		    	<category android:name="org.kuali.kme" />
+		  	</intent-filter>
+		</receiver>
+
+        
+		<!-- Audio Streamer Service -->
+        <service 
+            android:icon="@drawable/ic_launcher" 
+            android:enabled="true" 
+            android:name=".AudioStreamerService" />
+       
+        
+        <!-- GCM Intent Service -->
+		<service 
+            android:icon="@drawable/ic_launcher" 
+            android:enabled="true" 		    
+		    android:name=".GCMIntentService" />
+        
+		
+    </application>
+</manifest> 

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mdot_name">Kuali Mobile</string>
+    <string name="app_name">KME</string>
+	<string name="share_name">KME</string>
+	<string name="package_name">org.kuali.kme</string>
+</resources>
