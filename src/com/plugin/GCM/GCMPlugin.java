@@ -1,10 +1,5 @@
 package com.plugin.GCM;
 
-
-//import java.io.*;
-//import java.util.*;
-
-
 import org.apache.cordova.api.Plugin;
 import org.apache.cordova.api.PluginResult;
 import org.apache.cordova.api.PluginResult.Status;
